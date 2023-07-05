@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import Card from "./component/card/Card";
+import {
+  dataType1,
+  dataType2,
+  dataType3,
+  dataType4,
+} from "./component/data/Data";
+import Table from "./component/table/Table";
 
 function App() {
+  const item = ["Mejerie", "Grönsaker", "Kolonial", "Fryst فريز"];
+  const dataSelected = [dataType1, dataType2, dataType3, dataType4];
+  const [selectTable, setSelectTable] = useState(dataType1);
+
+  const createTable = () => {
+    return <Table propValue={selectTable} />;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className=" w-full grid lg:grid-cols-6 gap-5 m-10 p-4  sm:grid-cols-1 ">
+        {item.map((value, index) => {
+          return (
+            <div
+              key={index}
+              className="mb-3"
+              onClick={() => {
+                setSelectTable(dataSelected[index]);
+              }}
+            >
+              <Card propValue={value} />
+            </div>
+          );
+        })}
+      </div>
+      <button className="" onClick={createTable}>
+        Show Table
+      </button>
+      <Table propValue={selectTable} />
     </div>
   );
 }
